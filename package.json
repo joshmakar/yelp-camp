@@ -1,0 +1,31 @@
+{
+  "name": "yelpcamp",
+  "version": "1.0.0",
+  "description": "Yelp camp app using various programming languages, packages, libraries, and database managment.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joshmakar/yelp-camp.git"
+  },
+  "keywords": [
+    "html",
+    "css",
+    "javascript",
+    "jquery",
+    "node",
+    "nodejs",
+    "npm",
+    "github",
+    "ejs",
+    "mongodb"
+  ],
+  "author": "Josh Makar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joshmakar/yelp-camp/issues"
+  },
+  "homepage": "https://github.com/joshmakar/yelp-camp#readme"
+}
