@@ -1,2 +1,3 @@
 # Ignore Sublime Config Files
 *.sublime-*
+node_modules
