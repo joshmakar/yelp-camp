@@ -4,13 +4,18 @@ A web app used for listing different campgrounds and information about them.
 
 ## Built With
 
+* [Body Parser](https://www.npmjs.com/package/body-parser)
+* [Bootstrap 4](https://getbootstrap.com)
+* [EJS](https://www.npmjs.com/package/ejs)
 * [Express](https://www.npmjs.com/package/express)
 * [Express Sanitizer](https://www.npmjs.com/package/express-sanitizer)
-* [EJS](https://www.npmjs.com/package/ejs)
-* [Body Parser](https://www.npmjs.com/package/body-parser)
-* [MongoDB](https://www.mongodb.com/)
+* [Express Session](https://www.npmjs.com/package/express-session)
+* [Font Awesome](https://fontawesome.com)
+* [MongoDB](https://www.mongodb.com)
 * [Mongoose](https://www.npmjs.com/package/mongoose)
-* [Bootstrap 4](https://getbootstrap.com/)
+* [Passport](https://www.npmjs.com/package/passport)
+* [Passport Local](https://www.npmjs.com/package/passport-local)
+* [Passport Local Mongoose](https://www.npmjs.com/package)
 
 ## Authors
 
