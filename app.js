@@ -56,7 +56,7 @@ passport.deserializeUser(User.deserializeUser());
 
 /* Populate Database
 const seedDB      = require('./seeds.js');
-seedDB();
+seedDB(['clearOnly']);
 //*/
 
 
