@@ -4,7 +4,8 @@
 
 const mongoose    = require('mongoose'),
       Campground  = require('./models/campground'),
-      Comment     = require('./models/comment');
+      Comment     = require('./models/comment'),
+      User        = require('./models/user');
 
 const chalk       = require('chalk'),
       error       = chalk.bold.red,
@@ -38,69 +39,54 @@ const data = [
 // Seed the DB
 //////////////////////////////////////////////////
 
-function seedDB(){
+function seedDB(modifier = ['default']){
   // Remove all campgrounds
   Campground.deleteMany({}, (err) => {
     if(err){
-      console.log(error(err));
+      return console.log(error(err));
     }
     console.log('Removed Campgrounds!');
-    // Add a few campgrounds
-    data.forEach(seed => {
-      Campground.create(seed, (err, campground) => {
+    // Remove all comments
+    Comment.deleteMany({}, err => {
+      if (err) {
+        return console.log(error(err));
+      }
+      console.log('Removed Comments!');
+      // Remove all users
+      User.deleteMany({}, err => {
         if (err) {
-          console.log(error(err));
-        } else {
-          console.log('Added a campground');
-          // Create a comment
-          Comment.create({
-            text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio, dignissimos.',
-            author: 'Homer'
-          }, (err, comment) => {
-            if (err) {
-              console.log(error(err));
-            } else {
-              campground.comments.push(comment);
-              campground.save();
-              console.log('Created new comment');
-            }
-          });
-
+          return console.log(error(err));
         }
+        console.log('Removed Users!');
+        // Skip seeding?
+        if (modifier.includes('clearOnly')) {
+          return console.log('Seeding has been skipped');
+        }
+        // Add a few campgrounds
+        data.forEach(seed => {
+          Campground.create(seed, (err, campground) => {
+            if (err) {
+              return console.log(error(err));
+            }
+            console.log('Added a campground');
+            // Create a comment
+            Comment.create({
+              text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio, dignissimos.',
+              author: 'Homer'
+            }, (err, comment) => {
+              if (err) {
+                console.log(error(err));
+              } else {
+                campground.comments.push(comment);
+                campground.save();
+                console.log('Created new comment');
+              }
+            });
+          });
+        });
       });
     });
   });
 }
 
 module.exports = seedDB;
-
-// Comment.remove({}, (err) => {
-//       if(err){
-//         console.log(err);
-//       }
-//       console.log('removed comments!');
-//       //add a few campgrounds
-//       data.forEach(seed => {
-//         Campground.create(seed, (err, campground) => {
-//           if(err){
-//             console.log(err)
-//           } else {
-//             console.log('added a campground');
-//             //create a comment
-//             Comment.create(
-//             {
-//               text: 'This place is great, but I wish there was internet',
-//               author: 'Homer'
-//             }, (err, comment) => {
-//               if(err){
-//                 console.log(err);
-//               } else {
-//                 campground.comments.push(comment);
-//                 campground.save();
-//                 console.log('Created new comment');
-//               }
-//             });
-//           }
-//         });
-//       });
-//     });
