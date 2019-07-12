@@ -1,15 +1,17 @@
 <% include partials/header %>
 
-<h1>Sign Up!</h1>
+<div class="container">
+  <h1>Sign Up!</h1>
 
-<% if (typeof err !== 'undefined') { %>
-     <%= err.message %>
-<% } %>
+  <% if (typeof err !== 'undefined') { %>
+       <%= err.message %>
+  <% } %>
 
-<form action="/register" method="POST">
-  <input type="text" name="username" placeholder="Enter a username">
-  <input type="password" name="password" placeholder="Enter a strong password">
-  <button>Sign Up!</button>
-</form>
+  <form action="/register" method="POST">
+    <input type="text" name="username" placeholder="Enter a username">
+    <input type="password" name="password" placeholder="Enter a strong password">
+    <button>Sign Up!</button>
+  </form>
+</div>
 
 <% include partials/footer %>
