@@ -19,6 +19,9 @@
         <div class="card-body pt-0">
           <h1 class="card-title"><a><%= campground.name %></a></h1>
           <p class="card-text"><%= campground.description %></p>
+          <% if(typeof campground.author.username !== 'undefined') { %>
+            <cite>Submitted by: <%= campground.author.username %></cite>
+          <% } %>
           <hr>
           <span>*****</span>
           <span class="d-block float-right">4 reviews</span>
