@@ -9,6 +9,9 @@ const express  = require('express'),
 // Require models
 const User     = require('../models/user');
 
+// Require middlware
+const middleware = require('../middleware');
+
 // Create package associations
 const router   = express.Router();
 
@@ -74,18 +77,6 @@ router.get('/logout', (req, res) => {
 router.get('*', (req, res) => {
   res.send('404');
 });
-
-
-//////////////////////////////////////////////////
-// Middleware
-//////////////////////////////////////////////////
-
-function isLoggedIn(req, res, next){
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  res.render('login');
-}
 
 
 //////////////////////////////////////////////////

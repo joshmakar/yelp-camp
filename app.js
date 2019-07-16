@@ -7,6 +7,7 @@ const bodyParser            = require('body-parser'),
       chalk                 = require('chalk'),
       express               = require('express'),
       expressSession        = require('express-session'),
+      methodOverride        = require('method-override'),
       mongoose              = require('mongoose'),
       passport              = require('passport'),
       passportLocal         = require('passport-local'),
@@ -17,18 +18,10 @@ const Campground            = require('./models/campground'),
       Comment               = require('./models/comment'),
       User                  = require('./models/user');
 
-// Require routes
-const campgroundRoutes      = require('./routes/campgrounds'),
-      commentRoutes         = require('./routes/comments'),
-      indexRoutes           = require('./routes/index');
-
 // Create package associations
 const app                   = express(),
       error                 = chalk.bold.red,
       warning               = chalk.keyword('orange');
-
-// Connect to DB
-mongoose.connect('mongodb://localhost/yelp_camp', { useNewUrlParser: true });
 
 // Configure express
 app.set('view engine', 'ejs');
@@ -45,6 +38,12 @@ app.use((req, res, next) => {
   res.locals.currentUser = req.user;
   next();
 });
+
+// Configure express & routes
+app.use(methodOverride('_method'));
+const campgroundRoutes = require('./routes/campgrounds'),
+      commentRoutes    = require('./routes/comments'),
+      indexRoutes      = require('./routes/index');
 app.use('/campgrounds/:id/comments', commentRoutes);
 app.use('/campgrounds', campgroundRoutes);
 app.use(indexRoutes);
@@ -53,6 +52,12 @@ app.use(indexRoutes);
 passport.use(new passportLocal(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+// Connect to DB
+mongoose.connect('mongodb://localhost/yelp_camp', {
+  useNewUrlParser: true,
+  useFindAndModify: false
+});
 
 /* Populate Database
 const seedDB      = require('./seeds.js');
