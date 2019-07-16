@@ -11,6 +11,7 @@ A web app used for listing different campgrounds and information about them.
 * [Express Sanitizer](https://www.npmjs.com/package/express-sanitizer)
 * [Express Session](https://www.npmjs.com/package/express-session)
 * [Font Awesome](https://fontawesome.com)
+* [Method Override](https://www.npmjs.com/package/method-override)
 * [MongoDB](https://www.mongodb.com)
 * [Mongoose](https://www.npmjs.com/package/mongoose)
 * [Passport](https://www.npmjs.com/package/passport)
