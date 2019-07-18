@@ -29,4 +29,4 @@ A web app used for listing different campgrounds and information about them.
 
 ## Screenshots
 
-![Screenshot of Restful Blog App](screenshot.jpg?raw=true "Screenshot of the YelpCamp web app")
+![Screenshot of Restful Blog App](screenshot.gif?raw=true "Screenshot of the YelpCamp web app")
