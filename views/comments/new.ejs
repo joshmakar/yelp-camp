@@ -1,19 +1,17 @@
 <% include ../partials/header %>
 
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-auto">
-      <h1>Add New Comment to: <%= campground.name %></h1>
-      <form action="/campgrounds/<%= campground._id %>/comments" method="POST">
-        <div class="form-group">
-          <label for="comment_text">Comment</label>
-          <input id="comment_text" class="form-control" name="comment[text]" type="text" placeholder="Comment" required>
-        </div>
-        <button type="submit" class="btn btn-primary btn-sm">Submit</button>
-        <a href="/campgrounds/<%= campground._id %>">Go Back</a>
-      </form>
-      
-    </div>
+<div class="row justify-content-center">
+  <div class="col-auto">
+    <h1>Add New Comment to: <%= campground.name %></h1>
+    <form action="/campgrounds/<%= campground._id %>/comments" method="POST">
+      <div class="form-group">
+        <label for="comment_text">Comment</label>
+        <input id="comment_text" class="form-control" name="comment[text]" type="text" placeholder="Comment" required>
+      </div>
+      <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+      <a href="/campgrounds/<%= campground._id %>">Go Back</a>
+    </form>
+    
   </div>
 </div>
 
