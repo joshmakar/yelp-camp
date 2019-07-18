@@ -12,11 +12,16 @@ A web app used for listing different campgrounds and information about them.
 * [Express Session](https://www.npmjs.com/package/express-session)
 * [Font Awesome](https://fontawesome.com)
 * [Method Override](https://www.npmjs.com/package/method-override)
+* [Modernizr](https://modernizr.com/)
 * [MongoDB](https://www.mongodb.com)
 * [Mongoose](https://www.npmjs.com/package/mongoose)
 * [Passport](https://www.npmjs.com/package/passport)
 * [Passport Local](https://www.npmjs.com/package/passport-local)
 * [Passport Local Mongoose](https://www.npmjs.com/package)
+
+## To-Do
+
+> Need to set up the displaying of login errors to the user.
 
 ## Authors
 
