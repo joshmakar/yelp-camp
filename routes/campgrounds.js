@@ -38,13 +38,14 @@ router.get('/new', middleware.isLoggedIn, (req, res) => {
 // CREATE - Add new campground to DB
 router.post('/', middleware.isLoggedIn, (req, res) => {
   const name   = req.body.campground.name,
+        price  = req.body.campground.price,
         image  = req.body.campground.img,
         desc   = req.body.campground.desc;
         author = {
           id: req.user._id,
           username: req.user.username
         };
-  const newCampground = {name: name, image: image, description: desc, author: author};
+  const newCampground = {name: name, price: price, image: image, description: desc, author: author};
   
   // Add new campground to DB
   Campground.create(newCampground, (err, newlyCreated) => {
@@ -94,6 +95,7 @@ router.delete('/:id', middleware.isAuthorizedCampground, (req, res) => {
       console.log(err);
       return res.redirect('/campgrounds');
     }
+    req.flash('success', 'You\'re campground has been deleted successfully.');
     res.redirect('/campgrounds');
   });
 });
