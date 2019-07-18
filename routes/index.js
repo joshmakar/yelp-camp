@@ -39,10 +39,12 @@ router.post('/register', (req, res) => {
   const newUser = new User({username: username});
   User.register(newUser, password, (err, user) => {
     if (err) {
-      console.log(err);
-      return res.render('register', {err: err});
+      console.log(err.message);
+      req.flash('error', err.message);
+      return res.redirect('back');
     }
     passport.authenticate('local')(req, res, () => {
+      req.flash('success', `Your account has been created, ${user.username}!`)
       res.redirect('/campgrounds');
     });
   });
@@ -56,18 +58,22 @@ router.get('/login', (req, res) => {
 });
 
 // Log in route: Login logic
-router.post('/login', passport.authenticate('local', 
-  {
+router.post('/login',
+  passport.authenticate('local', {
+    failureRedirect: '/login',
+    failureFlash: true,
     successRedirect: '/campgrounds',
-    failureRedirect: '/login'
-  }
-));
+    successFlash: 'You\'ve successfully logged in!'
+  }),
+  (req, res) => {}
+);
 
 //------------------------------------------------
 
 // Log out route: Logout
 router.get('/logout', (req, res) => {
   req.logout();
+  req.flash('success', 'You\'ve successfully been logged out.');
   res.redirect('/campgrounds');
 });
 
