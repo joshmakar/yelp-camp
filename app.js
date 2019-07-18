@@ -7,6 +7,7 @@ const bodyParser            = require('body-parser'),
       chalk                 = require('chalk'),
       express               = require('express'),
       expressSession        = require('express-session'),
+      flash                 = require('connect-flash'),
       methodOverride        = require('method-override'),
       mongoose              = require('mongoose'),
       passport              = require('passport'),
@@ -34,8 +35,11 @@ app.use(expressSession({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
 app.use((req, res, next) => {
   res.locals.currentUser = req.user;
+  res.locals.error     = req.flash('error');
+  res.locals.success     = req.flash('success');
   next();
 });
 
