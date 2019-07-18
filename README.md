@@ -21,7 +21,17 @@ A web app used for listing different campgrounds and information about them.
 
 ## To-Do
 
-> Need to set up the displaying of login errors to the user.
+> Add rating functionality
+> Include fuzzy search
+> Integrate Google Maps
+> Add a footer
+> Display time since posts/comments created/updated
+> Add user profiles
+> Add user roles
+> Add ability for password reset
+> Add ability to upload images
+> Refactor callbacks with Async/Await
+> Add pagination
 
 ## Authors
 
