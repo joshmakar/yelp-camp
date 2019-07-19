@@ -2,9 +2,11 @@
 // Setup and configure environment
 //////////////////////////////////////////////////
 
+// Require dotenv
+require('dotenv').config().parsed;
+
 // Require packages
 const bodyParser            = require('body-parser'),
-      chalk                 = require('chalk'),
       express               = require('express'),
       expressSession        = require('express-session'),
       flash                 = require('connect-flash'),
@@ -20,9 +22,7 @@ const Campground            = require('./models/campground'),
       User                  = require('./models/user');
 
 // Create package associations
-const app                   = express(),
-      error                 = chalk.bold.red,
-      warning               = chalk.keyword('orange');
+const app                   = express();
 
 // Configure express
 app.set('view engine', 'ejs');

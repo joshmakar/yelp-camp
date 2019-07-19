@@ -11,6 +11,16 @@ const Campground = require('../models/campground');
 // Require middlware
 const middleware = require('../middleware');
 
+// Require Node Geocoder
+const NodeGeocoder = require('node-geocoder');
+const options = {
+  provider: 'google',
+  httpAdapter: 'https',
+  apiKey: process.env.GEOCODER_API_KEY,
+  formatter: null
+};
+const geocoder = NodeGeocoder(options);
+
 // Create package associations
 const router     = express.Router();
 
@@ -25,7 +35,7 @@ router.get('/', (req, res) => {
     if (err) {
       console.log(err);
     } else {
-      res.render('campgrounds/index', {campgrounds: allCampgrounds});
+      res.render('campgrounds/index', {campgrounds: allCampgrounds, page: 'campgrounds'});
     }
   });
 });
@@ -37,22 +47,41 @@ router.get('/new', middleware.isLoggedIn, (req, res) => {
 
 // CREATE - Add new campground to DB
 router.post('/', middleware.isLoggedIn, (req, res) => {
-  const name   = req.body.campground.name,
-        price  = req.body.campground.price,
-        image  = req.body.campground.img,
-        desc   = req.body.campground.desc;
-        author = {
+  const name    = req.body.campground.name,
+        price   = req.body.campground.price,
+        image   = req.body.campground.img,
+        desc    = req.body.campground.desc,
+        address = req.body.campground.address,
+        author  = {
           id: req.user._id,
           username: req.user.username
         };
-  const newCampground = {name: name, price: price, image: image, description: desc, author: author};
-  
-  // Add new campground to DB
-  Campground.create(newCampground, (err, newlyCreated) => {
+  geocoder.geocode(address, (err, data) => {
     if (err) {
-      return console.log(err);
+      console.log(err);
+      req.flash('error', 'Provided address not found or invalid.');
+      return res.redirect('back');
     }
-    res.redirect('/campgrounds');
+    const location = {
+      address: data[0].formattedAddress,
+      lat: data[0].latitude,
+      long: data[0].longitude
+    };
+    const newCampground = {
+      name: name,
+      price: price,
+      image: image,
+      description: desc,
+      location: location,
+      author: author
+    };
+    // Add new campground to DB
+    Campground.create(newCampground, (err, newlyCreated) => {
+      if (err) {
+        return console.log(err);
+      }
+      res.redirect('/campgrounds');
+    });
   });
 });
 

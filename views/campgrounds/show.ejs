@@ -8,6 +8,8 @@
       <li class="list-group-item">Info 2</li>
       <li class="list-group-item">Info 3</li>
     </ul>
+    <!--Google Map Container -->
+    <div id="map"></div>
   </div>
   <div class="col-9">
     <div class="card mb-2">
@@ -61,5 +63,20 @@
     </div>
   </div>
 </div>
+
+<!-- Google Maps Script -->
+<script>
+  // Initialize and add the map
+  function initMap() {
+    // The location
+    let location = {lat: <%= campground.location.lat %>, lng: <%= campground.location.long %>};
+    // The map, centered at location
+    let map = new google.maps.Map(
+        document.getElementById('map'), {zoom: 4, center: location});
+    // The marker, positioned at location
+    let marker = new google.maps.Marker({position: location, map: map});
+  }
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwWUoXDcbJk6GvV33NOYbIZ4QuOUtNbSQ&callback=initMap"></script>
 
 <% include ../partials/footer %>

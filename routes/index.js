@@ -22,24 +22,24 @@ const router   = express.Router();
 
 // Root route
 router.get('/', (req, res) => {
-  res.render('landing');
+  res.render('landing', {page: 'landing'});
 });
 
 //------------------------------------------------
 
-// Sign up route: NEW - Display registration form
+// Registration route: NEW - Display registration form
 router.get('/register', (req, res) => {
-  res.render('register');
+  res.render('register', {page: 'register'});
 });
 
-// Sign up route: CREATE - Add new user to DB
+// Registration route: CREATE - Add new user to DB
 router.post('/register', (req, res) => {
   const username = req.body.username,
         password = req.body.password;
   const newUser = new User({username: username});
   User.register(newUser, password, (err, user) => {
     if (err) {
-      console.log(err.message);
+      console.log(err);
       req.flash('error', err.message);
       return res.redirect('back');
     }
@@ -54,7 +54,7 @@ router.post('/register', (req, res) => {
 
 // Log in route: Display login form orm
 router.get('/login', (req, res) => {
-  res.render('login');
+  res.render('login', {page: 'login'});
 });
 
 // Log in route: Login logic

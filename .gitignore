@@ -1,4 +1,4 @@
-# Ignore Sublime Config Files
+.env
 *.sublime-*
 node_modules
 working

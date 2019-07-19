@@ -6,6 +6,7 @@ A web app used for listing different campgrounds and information about them.
 
 * [Body Parser](https://www.npmjs.com/package/body-parser)
 * [Bootstrap 4](https://getbootstrap.com)
+* [Dotenv](https://www.npmjs.com/package/dotenv)
 * [EJS](https://www.npmjs.com/package/ejs)
 * [Express](https://www.npmjs.com/package/express)
 * [Express Sanitizer](https://www.npmjs.com/package/express-sanitizer)
@@ -15,6 +16,7 @@ A web app used for listing different campgrounds and information about them.
 * [Modernizr](https://modernizr.com/)
 * [MongoDB](https://www.mongodb.com)
 * [Mongoose](https://www.npmjs.com/package/mongoose)
+* [Node Geocoder](https://www.npmjs.com/package/node-geocoder)
 * [Passport](https://www.npmjs.com/package/passport)
 * [Passport Local](https://www.npmjs.com/package/passport-local)
 * [Passport Local Mongoose](https://www.npmjs.com/package)

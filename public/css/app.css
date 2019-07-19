@@ -1,3 +1,10 @@
 body {
   padding-top: 70px;
 }
+
+/*Google Maps*/
+#map {
+  background-color: grey;
+  height: 400px;
+  width: 100%;
+ }
