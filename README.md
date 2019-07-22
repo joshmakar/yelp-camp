@@ -1,6 +1,6 @@
 # YelpCamp
 
-A web app used for listing different campgrounds and information about them.
+A web app used for displaying different campgrounds and information about them.
 
 ## Built With
 
