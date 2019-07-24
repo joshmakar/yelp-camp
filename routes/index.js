@@ -39,11 +39,10 @@ router.get('/register', (req, res) => {
 
 // Registration route: CREATE - Add new user to DB
 router.post('/register', (req, res) => {
-  const username = req.body.username,
-        password = req.body.password,
-        isAdmin  = req.body.adminCode === process.env.ADMIN_CODE ? true: false;
-  const newUser = new User({username: username, isAdmin: isAdmin});
-  //eval(require('locus'))
+  const password  = req.body.password;
+  req.body.user.username = req.body.username;
+  req.body.user.isAdmin = req.body.adminCode === process.env.ADMIN_CODE ? true: false;
+  const newUser = new User(req.body.user);
   User.register(newUser, password, (err, user) => {
     if (err) {
       console.error(err);
@@ -51,7 +50,7 @@ router.post('/register', (req, res) => {
       return res.redirect('back');
     }
     passport.authenticate('local')(req, res, () => {
-      req.flash('success', `Your ${isAdmin ? 'admin' : ''} account has been created, ${user.username}!`)
+      req.flash('success', `Your ${req.body.user.isAdmin ? 'admin' : ''} account has been created, ${user.username}!`)
       res.redirect('/campgrounds');
     });
   });
