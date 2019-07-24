@@ -35,7 +35,7 @@ middlewareObj.isAuthorizedCampground = (req, res, next) => {
       req.flash('error', 'Campground not found.');
       return res.redirect('back');
     }
-    if (!foundCampground.author.id.equals(req.user._id)) {
+    if (!req.user.isAdmin && !foundCampground.author.id.equals(req.user._id)) {
       req.flash('error', 'You do not have permission to perform this action.');
       return res.redirect('back');
     }
@@ -55,7 +55,7 @@ middlewareObj.isAuthorizedComment = (req, res, next) => {
       req.flash('error', 'Comment not found.');
       return res.redirect('back');
     }
-    if (!foundComment.author.id.equals(req.user._id)) {
+    if (!req.user.isAdmin && !foundComment.author.id.equals(req.user._id)) {
       req.flash('error', 'You do not have permission to perform this action.');
       return res.redirect('back');
     }

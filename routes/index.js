@@ -20,6 +20,11 @@ const router   = express.Router();
 // Route configuration
 //////////////////////////////////////////////////
 
+// Testing route
+router.get('/test', (err, res) =>{
+  res.send('test route');
+});
+
 // Root route
 router.get('/', (req, res) => {
   res.render('landing', {page: 'landing'});
@@ -35,16 +40,18 @@ router.get('/register', (req, res) => {
 // Registration route: CREATE - Add new user to DB
 router.post('/register', (req, res) => {
   const username = req.body.username,
-        password = req.body.password;
-  const newUser = new User({username: username});
+        password = req.body.password,
+        isAdmin  = req.body.adminCode === process.env.ADMIN_CODE ? true: false;
+  const newUser = new User({username: username, isAdmin: isAdmin});
+  //eval(require('locus'))
   User.register(newUser, password, (err, user) => {
     if (err) {
-      console.log(err);
+      console.error(err);
       req.flash('error', err.message);
       return res.redirect('back');
     }
     passport.authenticate('local')(req, res, () => {
-      req.flash('success', `Your account has been created, ${user.username}!`)
+      req.flash('success', `Your ${isAdmin ? 'admin' : ''} account has been created, ${user.username}!`)
       res.redirect('/campgrounds');
     });
   });

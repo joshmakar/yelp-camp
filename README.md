@@ -14,6 +14,7 @@ A web app used for displaying different campgrounds and information about them.
 * [Font Awesome](https://fontawesome.com)
 * [Method Override](https://www.npmjs.com/package/method-override)
 * [Modernizr](https://modernizr.com/)
+* [Moment](https://www.npmjs.com/package/moment)
 * [MongoDB](https://www.mongodb.com)
 * [Mongoose](https://www.npmjs.com/package/mongoose)
 * [Node Geocoder](https://www.npmjs.com/package/node-geocoder)

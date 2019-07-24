@@ -36,7 +36,12 @@
             </li>
           <% } else { %>
             <li class="navbar-text">
-              <i class="fas fa-user-astronaut"></i> <%= currentUser.username %>
+              <% if (currentUser.isAdmin) { %>
+                <i class="fas fa-user-astronaut"></i>
+              <% } else { %>
+                <i class="fas fa-user"></i>
+              <% } %>
+                <%= currentUser.username %>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/logout">Log Out</a>
