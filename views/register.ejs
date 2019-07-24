@@ -3,7 +3,10 @@
 <h1>Sign Up!</h1>
 
 <form action="/register" method="POST">
+  <input type="email" name="user[email]" placeholder="john@mulaney.com">
   <input type="text" name="username" placeholder="Enter a username">
+  <input type="text" name="user[firstName]" placeholder="John">
+  <input type="text" name="user[lastName]" placeholder="Mulaney">
   <input type="password" name="password" placeholder="Enter a strong password">
   <input type="password" name="adminCode" placeholder="Enter your admin code if you have one">
   <button>Sign Up!</button>
