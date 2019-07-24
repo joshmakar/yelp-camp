@@ -59,7 +59,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 // Connect to DB
-mongoose.connect('mongodb://localhost/yelp_camp', {
+mongoose.connect(process.env.MONGODB, {
   useNewUrlParser: true,
   useFindAndModify: false
 });
