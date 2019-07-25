@@ -4,6 +4,7 @@ A web app used for displaying different campgrounds and information about them.
 
 ## Built With
 
+* [async](https://www.npmjs.com/package/async)
 * [Body Parser](https://www.npmjs.com/package/body-parser)
 * [Bootstrap 4](https://getbootstrap.com)
 * [Dotenv](https://www.npmjs.com/package/dotenv)
@@ -21,15 +22,13 @@ A web app used for displaying different campgrounds and information about them.
 * [Passport](https://www.npmjs.com/package/passport)
 * [Passport Local](https://www.npmjs.com/package/passport-local)
 * [Passport Local Mongoose](https://www.npmjs.com/package)
+* [SendGrid/Mail](https://www.npmjs.com/package/@sendgrid/mail)
 
 ## To-Do
 
 * Add rating functionality
 * Include fuzzy search
-* Integrate Google Maps
 * Add a footer
-* Display time since posts/comments created/updated
-* Add user profiles
 * Add user roles
 * Add ability for password reset
 * Add ability to upload images
