@@ -3,11 +3,15 @@
 //////////////////////////////////////////////////
 
 // Require packages
-const express  = require('express'),
-      passport = require('passport');
+const async    = require('async'),
+      crypto   = require('crypto'),
+      express  = require('express'),
+      passport = require('passport'),
+      sgMail   = require('@sendgrid/mail');
 
 // Require models
-const User     = require('../models/user');
+const User       = require('../models/user'),
+      Campground = require('../models/campground');
 
 // Require middlware
 const middleware = require('../middleware');
@@ -15,15 +19,20 @@ const middleware = require('../middleware');
 // Create package associations
 const router   = express.Router();
 
+// Configure SendGrid
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
 
 //////////////////////////////////////////////////
 // Route configuration
 //////////////////////////////////////////////////
 
 // Testing route
-router.get('/test', (err, res) =>{
-  res.send('test route');
+router.get('/durindoor', (err, res) =>{
+  res.send('You\'ve discovered a hidden door, but it seems to be inpenetrable.');
 });
+
+//------------------------------------------------
 
 // Root route
 router.get('/', (req, res) => {
@@ -58,7 +67,7 @@ router.post('/register', (req, res) => {
 
 //------------------------------------------------
 
-// Log in route: Display login form orm
+// Log in route: Display login form
 router.get('/login', (req, res) => {
   res.render('login', {page: 'login'});
 });
@@ -81,6 +90,99 @@ router.get('/logout', (req, res) => {
   req.logout();
   req.flash('success', 'You\'ve successfully been logged out.');
   res.redirect('/campgrounds');
+});
+
+//------------------------------------------------
+
+// Forgot password route: Display forgot password form
+router.get('/forgot', (req, res) => {
+  res.render('forgot');
+});
+
+// Forgot password route: Handle forgot password form
+router.post('/forgot', (req, res, next) => {
+  async.waterfall([
+    done => {
+      crypto.randomBytes(20, (err, buf) => {
+        const token = buf.toString('hex');
+        done(err, token);
+      });
+    },
+    (token, done) => {
+      User.findOne({email: req.body.email}, (err, user) => {
+        if (!user) {
+          req.flash('error', `An email will be sent to ${req.body.email} if a user account with the associated email is found.`);
+          return res.redirect('/forgot');
+        }
+        user.resetPasswordToken = token;
+        user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+        user.save(err => {
+          done(err, token, user);
+        });
+      });
+    },
+    (token, user, done) => {
+      const msg = {
+        to: user.email,
+        from: process.env.ADMINEMAIL,
+        subject: 'YelpCamp Password Reset Request',
+        text: `http://${req.headers.host}/reset/${token}`,
+        html: `http://${req.headers.host}/reset/${token}`,
+      };
+      sgMail.send(msg, (err, result) => {
+        if (err) {
+          console.error(err);
+          req.flash('error', 'An error has occured.');
+          return res.redirect('/forgot');
+        }
+        req.flash('success', `An email has been sent to ${user.email} with further instructions.`);
+        done(err, 'done');
+      });
+      // done(null, 'done');
+    }
+  ], err => {
+    if (err) {
+      console.error('ERR:', err);
+      return next(err);
+    }
+    res.redirect('/forgot');
+  });
+});
+
+// Forgot password route: Display reset password form
+router.get('/reset/:token', (req, res) => {
+  return res.send('reset route');
+  User.findOne({
+    resetPasswordToken: req.params.token,
+    resetPasswordExpires: {
+      $gt: Date.now()
+    }
+  }, (err, user) => {
+    if (!user) {
+      console.error(err);
+      req.flash('error', 'Password reset toke is either invalid or has expired.');
+      return res.redirect('/forgot');
+    }
+  });
+});
+
+//------------------------------------------------
+
+// User profile route: View
+router.get('/users/:id', (req, res) => {
+  User.findById(req.params.id, (err, foundUser) => {
+    if (err) {
+      req.flash('error', 'The specified user could not be found.');
+      return res.redirect('back');
+    }
+    Campground.find().where('author.id').equals(foundUser._id).exec((err, campgrounds) => {
+      if (err) {
+        req.flash('error', 'There was an error in your request.');
+        return res.redirect('back');
+      }
+      res.render('users/show', {user: foundUser, campgrounds: campgrounds});
+    });
+  });
 });
 
 //------------------------------------------------
