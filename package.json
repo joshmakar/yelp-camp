@@ -29,6 +29,8 @@
   },
   "homepage": "https://github.com/joshmakar/yelp-camp#readme",
   "dependencies": {
+    "@sendgrid/mail": "^6.4.0",
+    "async": "^3.1.0",
     "body-parser": "^1.19.0",
     "chalk": "^2.4.2",
     "connect-flash": "^0.1.1",
@@ -40,6 +42,7 @@
     "moment": "^2.24.0",
     "mongoose": "^5.6.4",
     "node-geocoder": "^3.23.0",
+    "nodemailer": "^6.3.0",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^5.0.1"
