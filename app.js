@@ -61,6 +61,7 @@ passport.deserializeUser(User.deserializeUser());
 // Connect to DB
 mongoose.connect(process.env.MONGODB, {
   useNewUrlParser: true,
+  useCreateIndex: true,
   useFindAndModify: false
 });
 
