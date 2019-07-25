@@ -1,0 +1,16 @@
+<% include partials/header %>
+
+<div class="row justify-content-center">
+  <div class="col col-md-6 col-lg-4">
+    <form action="/forgot" method="POST">
+      <legend>Forgot Password?</legend>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input id="email" class="form-control" type="text" name="email" placeholder="Enter your email" autofocus>
+      </div>
+      <button class="btn btn-primary">Reset Password</button>
+    </form>
+  </div>
+</div>
+
+<% include partials/footer %>
