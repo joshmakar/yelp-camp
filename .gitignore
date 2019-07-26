@@ -1,5 +1,6 @@
 .env
 *.sublime-*
 *.code-workspace*
+.vscode
 node_modules
 working
