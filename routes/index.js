@@ -154,7 +154,6 @@ router.post('/forgot', (req, res, next) => {
 
 // Forgot password route: Display reset password form
 router.get('/reset/:token', (req, res) => {
-  // return res.send('reset route');
   User.findOne({
     resetPasswordToken: req.params.token,
     resetPasswordExpires: {
