@@ -55,6 +55,10 @@ router.post('/register', (req, res) => {
   User.register(newUser, password, (err, user) => {
     if (err) {
       console.error(err);
+      if (err.code === 11000) {
+        req.flash('error', 'A user with the given email is already registered');
+        return res.redirect('back');
+      }
       req.flash('error', err.message);
       return res.redirect('back');
     }
@@ -129,7 +133,7 @@ router.post('/forgot', (req, res, next) => {
         text: `http://${req.headers.host}/reset/${token}`,
         html: `http://${req.headers.host}/reset/${token}`,
       };
-      sgMail.send(msg, (err, result) => {
+      sgMail.send(msg, err => {
         if (err) {
           console.error(err);
           req.flash('error', 'An error has occured.');
@@ -138,7 +142,6 @@ router.post('/forgot', (req, res, next) => {
         req.flash('success', `An email has been sent to ${user.email} with further instructions.`);
         done(err, 'done');
       });
-      // done(null, 'done');
     }
   ], err => {
     if (err) {
@@ -151,7 +154,7 @@ router.post('/forgot', (req, res, next) => {
 
 // Forgot password route: Display reset password form
 router.get('/reset/:token', (req, res) => {
-  return res.send('reset route');
+  // return res.send('reset route');
   User.findOne({
     resetPasswordToken: req.params.token,
     resetPasswordExpires: {
@@ -163,6 +166,79 @@ router.get('/reset/:token', (req, res) => {
       req.flash('error', 'Password reset toke is either invalid or has expired.');
       return res.redirect('/forgot');
     }
+    res.render('reset', {token: req.params.token});
+  });
+});
+
+// Forgot password route: Update password
+router.post('/reset/:token', (req, res) => {
+  async.waterfall([
+    done => {
+      User.findOne({
+        resetPasswordToken: req.params.token,
+        resetPasswordExpires: {
+          $gt: Date.now()
+        }
+      }, (err, user) => {
+        if (err) {
+          console.error(err);
+          req.flash('error', 'An error has occured.');
+          return req.redirect('back');
+        }
+        if (!user) {
+          req.flash('error', 'Password reset toke is either invalid or has expired.');
+          return res.redirect('back');
+        }
+        if (!req.body.password === req.body.confirm) {
+          req.flash('error', 'Your confirmation password does not match.');
+          return res.redirect('back');
+        }
+        user.setPassword(req.body.password, err => {
+          if (err) {
+            console.error(err);
+            req.flash('error', 'An error has occured.');
+            return req.redirect('back');
+          }
+          user.resetPasswordToken,
+          user.resetPasswordExpires = undefined;
+          user.save(err => {
+            if (err) {
+              console.error(err);
+              req.flash('error', 'An error has occured.');
+              return req.redirect('back');
+            }
+            req.logIn(user, err => {
+              done(err, user);
+            });
+          });
+        });
+      });
+    },
+    (user, done) => {
+      const msg = {
+        to: user.email,
+        from: process.env.ADMINEMAIL,
+        subject: 'Your password has been changed',
+        text: `The password for the account with the associated email, ${user.email}, has been changed.`,
+        html: `The password for the account with the associated email, ${user.email}, has been changed.`,
+      };
+      sgMail.send(msg, err => {
+        if (err) {
+          console.error(err);
+          req.flash('error', 'An error has occured.');
+          return res.redirect('/forgot');
+        }
+        req.flash('success', 'Your password has been changed.');
+        done(err, 'done');
+      });
+    }
+  ], err => {
+    if (err) {
+      console.error(err);
+      req.flash('error', 'An error has occured.');
+      return res.redirect('/forgot');
+    }
+    res.redirect('/campgrounds');
   });
 });
 
