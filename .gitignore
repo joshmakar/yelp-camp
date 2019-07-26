@@ -1,4 +1,5 @@
 .env
 *.sublime-*
+*.code-workspace*
 node_modules
 working
