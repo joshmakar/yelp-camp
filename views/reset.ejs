@@ -2,7 +2,7 @@
 
 <div class="row justify-content-center">
   <div class="col col-md-6 col-lg-4">
-    <form action="/reset" method="POST">
+    <form action="/reset/<%= token %>" method="POST">
       <h1>Reset Password</h1>
       <div class="form-group">
         <label for="password">Password</label>
@@ -16,6 +16,5 @@
     </form>
   </div>
 </div>
-
 
 <% include partials/footer %>
