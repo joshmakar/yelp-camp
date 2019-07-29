@@ -31,13 +31,29 @@ const router     = express.Router();
 
 // INDEX - Display all campgrounds
 router.get('/', (req, res) => {
-  Campground.find({}, (err, allCampgrounds) => {
-    if (err) {
-      console.log(err);
-    } else {
-      res.render('campgrounds/index', {campgrounds: allCampgrounds, page: 'campgrounds'});
-    }
-  });
+  if (req.query.search) {
+    const searchQuery = new RegExp(escapeRegExp(req.query.search), 'gi');
+    Campground.find({name: searchQuery}, (err, foundCampgrounds) => {
+      if (err) {
+        console.error(err);
+        return res.redirect('/campgrounds');
+      }
+      if (foundCampgrounds < 1) {
+        req.flash('info', 'No campgrounds could be found using the search term provided.');
+        return res.redirect('/campgrounds');
+      }
+      res.render('campgrounds/index', {campgrounds: foundCampgrounds, page: 'campgrounds'});
+    });
+  } else {
+    Campground.find({}, (err, allCampgrounds) => {
+      if (err) {
+        console.log(err);
+        res.redirect('/campground');
+      } else {
+        res.render('campgrounds/index', {campgrounds: allCampgrounds, page: 'campgrounds'});
+      }
+    });
+  }
 });
 
 // NEW - Display the 'add new campground' form
@@ -128,6 +144,15 @@ router.delete('/:id', middleware.isAuthorizedCampground, (req, res) => {
     res.redirect('/campgrounds');
   });
 });
+
+
+//////////////////////////////////////////////////
+// Helper Functions
+//////////////////////////////////////////////////
+
+function escapeRegExp(s) {
+  return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+}
 
 
 //////////////////////////////////////////////////
