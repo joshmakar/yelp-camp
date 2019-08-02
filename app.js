@@ -13,13 +13,10 @@ const bodyParser            = require('body-parser'),
       methodOverride        = require('method-override'),
       mongoose              = require('mongoose'),
       passport              = require('passport'),
-      passportLocal         = require('passport-local'),
-      passportLocalMongoose = require('passport-local-mongoose');
+      passportLocal         = require('passport-local');
 
 // Require models
-const Campground            = require('./models/campground'),
-      Comment               = require('./models/comment'),
-      User                  = require('./models/user');
+const User                  = require('./models/user');
 
 // Create package associations
 const app                   = express();
