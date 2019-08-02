@@ -128,7 +128,7 @@ router.post('/forgot', (req, res, next) => {
     (token, user, done) => {
       const msg = {
         to: user.email,
-        from: process.env.ADMINEMAIL,
+        from: process.env.ADMIN_EMAIL,
         subject: 'YelpCamp Password Reset Request',
         text: `http://${req.headers.host}/reset/${token}`,
         html: `http://${req.headers.host}/reset/${token}`,
@@ -216,7 +216,7 @@ router.post('/reset/:token', (req, res) => {
     (user, done) => {
       const msg = {
         to: user.email,
-        from: process.env.ADMINEMAIL,
+        from: process.env.ADMIN_EMAIL,
         subject: 'Your password has been changed',
         text: `The password for the account with the associated email, ${user.email}, has been changed.`,
         html: `The password for the account with the associated email, ${user.email}, has been changed.`,
