@@ -3,7 +3,9 @@
 //////////////////////////////////////////////////
 
 // Require packages
-const express    = require('express');
+const express    = require('express'),
+      multer     = require('multer'),
+      cloudinary = require('cloudinary').v2;
 
 // Require models
 const Campground = require('../models/campground');
@@ -22,7 +24,34 @@ const options = {
 const geocoder = NodeGeocoder(options);
 
 // Create package associations
-const router     = express.Router();
+const router = express.Router();
+
+// Configure Multer
+const storage = multer.diskStorage({
+  filename: function(req, file, callback) {
+    callback(null, Date.now() + file.originalname);
+  }
+});
+
+const imageFilter = function (req, file, cb) {
+  // accept image files only
+  if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
+      return cb(new Error('Only image files are allowed!'), false);
+  }
+  cb(null, true);
+};
+
+const upload = multer({
+  storage: storage,
+  fileFilter: imageFilter
+});
+
+// Configure Cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
+});
 
 
 //////////////////////////////////////////////////
@@ -47,7 +76,7 @@ router.get('/', (req, res) => {
   } else {
     Campground.find({}, (err, allCampgrounds) => {
       if (err) {
-        console.log(err);
+        console.error(err);
         res.redirect('/campground');
       } else {
         res.render('campgrounds/index', {campgrounds: allCampgrounds, page: 'campgrounds'});
@@ -62,10 +91,9 @@ router.get('/new', middleware.isLoggedIn, (req, res) => {
 });
 
 // CREATE - Add new campground to DB
-router.post('/', middleware.isLoggedIn, (req, res) => {
+router.post('/', middleware.isLoggedIn, upload.single('image'), (req, res) => {
   const name    = req.body.campground.name,
         price   = req.body.campground.price,
-        image   = req.body.campground.img,
         desc    = req.body.campground.desc,
         address = req.body.campground.address,
         author  = {
@@ -74,29 +102,35 @@ router.post('/', middleware.isLoggedIn, (req, res) => {
         };
   geocoder.geocode(address, (err, data) => {
     if (err) {
-      console.log(err);
+      console.error(err);
       req.flash('error', 'Provided address not found or invalid.');
       return res.redirect('back');
     }
-    const location = {
-      address: data[0].formattedAddress,
-      lat: data[0].latitude,
-      long: data[0].longitude
-    };
-    const newCampground = {
-      name: name,
-      price: price,
-      image: image,
-      description: desc,
-      location: location,
-      author: author
-    };
-    // Add new campground to DB
-    Campground.create(newCampground, (err, newlyCreated) => {
-      if (err) {
-        return console.log(err);
+    cloudinary.uploader.upload(req.file.path, (error, result) => {
+      if (error) {
+        console.error(error);
+        return res.redirect('back');
       }
-      res.redirect('/campgrounds');
+      const location = {
+        address: data[0].formattedAddress,
+        lat: data[0].latitude,
+        long: data[0].longitude
+      };
+      const newCampground = {
+        name: name,
+        price: price,
+        image: result.secure_url,
+        description: desc,
+        location: location,
+        author: author
+      };
+      // Add new campground to DB
+      Campground.create(newCampground, (err, newlyCreated) => {
+        if (err) {
+          return console.error(err);
+        }
+        res.redirect(`/campgrounds/${newlyCreated.id}`);
+      });
     });
   });
 });
@@ -105,7 +139,7 @@ router.post('/', middleware.isLoggedIn, (req, res) => {
 router.get('/:id', (req, res) => {
   Campground.findById(req.params.id).populate('comments').exec((err, foundCampground) => {
     if (err) {
-      return console.log(err);
+      return console.error(err);
     }
     res.render('campgrounds/show', {campground: foundCampground});
   });
@@ -115,7 +149,7 @@ router.get('/:id', (req, res) => {
 router.get('/:id/edit', middleware.isAuthorizedCampground, (req, res) => {
   Campground.findById(req.params.id, (err, foundCampground) => {
     if (err) {
-      console.log(err);
+      console.error(err);
       return res.redirect('/campgrounds');
     }
     res.render('campgrounds/edit', {campground: foundCampground});
@@ -126,7 +160,7 @@ router.get('/:id/edit', middleware.isAuthorizedCampground, (req, res) => {
 router.put('/:id', middleware.isAuthorizedCampground, (req, res) => {
   Campground.findByIdAndUpdate(req.params.id, req.body.campground, (err, updatedCampground) => {
     if (err) {
-      console.log(err);
+      console.error(err);
       return res.redirect('/campgrounds');
     }
     res.redirect(`/campgrounds/${req.params.id}`);
@@ -137,7 +171,7 @@ router.put('/:id', middleware.isAuthorizedCampground, (req, res) => {
 router.delete('/:id', middleware.isAuthorizedCampground, (req, res) => {
   Campground.findByIdAndRemove(req.params.id, err => {
     if (err) {
-      console.log(err);
+      console.error(err);
       return res.redirect('/campgrounds');
     }
     req.flash('success', 'You\'re campground has been deleted successfully.');
