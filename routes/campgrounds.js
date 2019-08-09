@@ -157,13 +157,46 @@ router.get('/:id/edit', middleware.isAuthorizedCampground, (req, res) => {
 });
 
 // UPDATE - Save edits to DB
-router.put('/:id', middleware.isAuthorizedCampground, (req, res) => {
-  Campground.findByIdAndUpdate(req.params.id, req.body.campground, (err, updatedCampground) => {
+router.put('/:id', middleware.isAuthorizedCampground, upload.single('image'), (req, res) => {
+  let updateImage    = false,
+      updateLocation = false;
+  Campground.findById(req.params.id, (err, currentCampground) => {
     if (err) {
       console.error(err);
-      return res.redirect('/campgrounds');
+      return res.redirect('back');
     }
-    res.redirect(`/campgrounds/${req.params.id}`);
+    
+  });
+  geocoder.geocode(req.body.campground.address, (err, data) => {
+    if (err) {
+      console.error(err);
+      req.flash('error', 'Provided address not found or invalid.');
+      return res.redirect('back');
+    }
+    cloudinary.uploader.upload(req.file.path, (error, result) => {
+      if (error) {
+        console.error(error);
+        return res.redirect('back');
+      }
+      req.body.campground.author = {
+        id: req.user._id,
+        username: req.user.username
+      };
+      req.body.campground.image = result.secure_url;
+      req.body.campground.location = {
+        address: data[0].formattedAddress,
+        lat: data[0].latitude,
+        long: data[0].longitude
+      };
+      // Update campground in DB
+      Campground.findByIdAndUpdate(req.params.id, req.body.campground, (err, updatedCampground) => {
+        if (err) {
+          console.error(err);
+          return res.redirect('/campgrounds');
+        }
+        res.redirect(`/campgrounds/${updatedCampground.id}`);
+      });
+    });
   });
 });
 
