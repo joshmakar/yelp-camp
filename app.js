@@ -61,6 +61,10 @@ mongoose.connect(process.env.MONGODB, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false
+}).then(() => {
+  console.log('Connected to DB');
+}).catch(err => {
+  console.error('Error: ', err.message);
 });
 
 /* Populate Database
