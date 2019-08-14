@@ -2,6 +2,10 @@
 // Setup and configure environment
 //////////////////////////////////////////////////
 
+/* Strict Mode
+'use strict';
+//*/
+
 // Require dotenv
 require('dotenv').config().parsed;
 
