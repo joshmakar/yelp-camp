@@ -82,7 +82,7 @@ seedDB(['clearOnly']);
 //////////////////////////////////////////////////
 
 app.listen(process.env.PORT, process.env.IP, () => {
-  console.log('Yelp Camp App Running');
+  console.log(`Express server listening on port ${process.env.PORT}`);
 });
 
 
