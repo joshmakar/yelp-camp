@@ -9,6 +9,7 @@ A web app used for displaying different campgrounds and information about them.
 * [async](https://www.npmjs.com/package/async)
 * [Body Parser](https://www.npmjs.com/package/body-parser)
 * [Bootstrap 4](https://getbootstrap.com)
+* [Browser Sync](https://www.browsersync.io/)
 * [Cloudinary](https://www.npmjs.com/package/cloudinary)
 * [Dotenv](https://www.npmjs.com/package/dotenv)
 * [EJS](https://www.npmjs.com/package/ejs)
@@ -16,6 +17,7 @@ A web app used for displaying different campgrounds and information about them.
 * [Express Sanitizer](https://www.npmjs.com/package/express-sanitizer)
 * [Express Session](https://www.npmjs.com/package/express-session)
 * [Font Awesome](https://fontawesome.com)
+* [Gulp](https://gulpjs.com/)
 * [Method Override](https://www.npmjs.com/package/method-override)
 * [Modernizr](https://modernizr.com/)
 * [Moment](https://www.npmjs.com/package/moment)
@@ -23,21 +25,12 @@ A web app used for displaying different campgrounds and information about them.
 * [Mongoose](https://www.npmjs.com/package/mongoose)
 * [Multer](https://www.npmjs.com/package/multer)
 * [Node Geocoder](https://www.npmjs.com/package/node-geocoder)
+* [Nodemon](https://nodemon.io/)
 * [Passport](https://www.npmjs.com/package/passport)
 * [Passport Local](https://www.npmjs.com/package/passport-local)
 * [Passport Local Mongoose](https://www.npmjs.com/package)
+* [SASS](https://sass-lang.com/)
 * [SendGrid/Mail](https://www.npmjs.com/package/@sendgrid/mail)
-
-## To-Do
-
-* Add rating functionality
-* Include fuzzy search
-* Add a footer
-* Add user roles
-* Add ability for password reset
-* Add ability to upload images
-* Refactor callbacks with Async/Await
-* Add pagination
 
 ## Authors
 
