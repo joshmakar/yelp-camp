@@ -1,11 +1,11 @@
-<% include ../partials/header %>
+<% include ../partials/wrapper_head_full_width %>
 
-<header class="jumbotron">
+<header class="jumbotron campgrounds-header">
   <div class="container">
     <div class="row mb-3">
       <div class="col">
-        <h1>Welcome to YelpCamp!</h1>
-        <p>View our hand-picked campgrounds from all over the world.</p>
+        <h1>Find Your Camp</h1>
+        <p>View hand-picked campgrounds from all over the world.</p>
         <a class="btn btn-primary btn-lg" href="/campgrounds/new">Add New Campground</a>
       </div>
     </div>
@@ -13,7 +13,7 @@
       <div class="col">
         <form class="form-inline" action="/campgrounds" method="GET">
           <div class="form-group">
-            <input class="form-control" type="text" name="search" placeholder="Campground search...">  
+            <input class="form-control" type="text" name="search" placeholder="Campground search...">
             <button class="btn btn-primary">Search</button>
           </div>
         </form>
@@ -22,24 +22,22 @@
   </div>
 </header>
 
-<div class="row">
-  <div class="col">
-    <h3>Our Most Popular Campgrounds!</h3>
-  </div>
-</div>
+<div class="container">
 
-<div class="card-columns">
+  <div class="card-columns">
 
-  <%  campgrounds.forEach((campground) => { %>
-        <div class="card mb-3">
-          <img src="<%= campground.image %>" class="card-img-top" alt="">
-          <div class="card-body">
-            <h5 class="card-title"><%= campground.name %></h5>
-            <p class="card-text"><%= campground.description %></p>
-            <p class="card-text"><a class="btn btn-primary" href="/campgrounds/<%= campground._id %>">More Info</a></p>
+    <%  campgrounds.forEach((campground) => { %>
+          <div class="card mb-3">
+            <a href="/campgrounds/<%= campground._id %>"><img src="<%= campground.image %>" class="card-img-top" alt=""></a>
+            <div class="card-body">
+              <h5 class="card-title"><%= campground.name %></h5>
+              <p class="card-text"><%= campground.description %></p>
+              <p class="card-text"><a class="btn btn-primary" href="/campgrounds/<%= campground._id %>">More Info</a></p>
+            </div>
           </div>
-        </div>
-  <%  }); %>
+    <%  }); %>
+
+  </div>
 
 </div>
 

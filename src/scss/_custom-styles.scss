@@ -1,0 +1,41 @@
+$nav-bar-height: 56px;
+
+html, body {
+  min-height: 100vh;
+  height: auto;
+}
+
+body {
+  background: linear-gradient(45deg, rgb(45, 11, 30) 0%, rgb(45, 11, 30) 49%,rgb(78, 19, 25) 49%, rgb(78, 19, 25) 67%,rgb(111, 27, 19) 67%, rgb(111, 27, 19) 76%,rgb(143, 36, 14) 76%, rgb(143, 36, 14) 81%,rgb(176, 44, 8) 81%, rgb(176, 44, 8) 82%,rgb(209, 52, 3) 82%, rgb(209, 52, 3) 100%);
+  background-repeat: no-repeat;
+  padding-top: $nav-bar-height;
+
+  @include media-breakpoint-up(md) {
+    background-attachment: fixed;
+  }
+}
+
+.campgrounds-header {
+  background: url('../media/images/atanas-malamov-hMoRt0Y6wdU-unsplash.jpg');
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  min-height: 100vh;
+
+  @supports (-webkit-appearance:none) {
+    min-height: calc(100vh - (#{$nav-bar-height} * 2));
+    transform: translate3d(0,0,0);
+  }
+
+  @include media-breakpoint-up(md) {
+    min-height: 50vh;
+  }
+}
+
+
+/*Google Maps*/
+#map {
+  background-color: gray('100');
+  height: 400px;
+  width: 100%;
+ }
