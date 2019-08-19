@@ -7419,6 +7419,11 @@ body {
     body {
       background-attachment: fixed; } }
 
+#flash {
+  display: none;
+  position: absolute;
+  z-index: 1070; }
+
 .nav-footer {
   bottom: 0;
   padding: 1rem 0;

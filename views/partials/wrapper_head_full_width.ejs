@@ -1,17 +1,7 @@
 <% include header %>
 
-  <div class="container-fluid p-0">
-    <% if (error && error[0]) { %>
-      <div class="alert alert-danger" role="alert"><%- error %></div>
-    <% } %>
-    <% if (info && info[0]) { %>
-      <div class="alert alert-info" role="alert"><%- info %></div>
-    <% } %>
-    <% if (success && success[0]) { %>
-      <div class="alert alert-success" role="alert"><%- success %></div>
-    <% } %>
-  </div>
+<% include flash %>
 
-  <div class="container-fluid p-0">
+<div class="container-fluid p-0">
 
-  <!-- div.container closed in footer -->
+<!-- div.container closed in footer -->

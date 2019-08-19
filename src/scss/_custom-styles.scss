@@ -40,6 +40,12 @@ body {
   }
 }
 
+#flash {
+  display: none;
+  position: absolute;
+  z-index: $zindex-tooltip;
+}
+
 .nav-footer {
   bottom: 0;
   padding: 1rem 0;
