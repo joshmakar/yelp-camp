@@ -1,4 +1,4 @@
-# YelpCamp
+# CampFinder
 
 A web app used for displaying different campgrounds and information about them.
 
@@ -31,6 +31,7 @@ A web app used for displaying different campgrounds and information about them.
 * [Passport Local Mongoose](https://www.npmjs.com/package)
 * [SASS](https://sass-lang.com/)
 * [SendGrid/Mail](https://www.npmjs.com/package/@sendgrid/mail)
+* [TypeScript](https://www.typescriptlang.org)
 
 ## Authors
 
