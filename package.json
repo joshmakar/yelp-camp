@@ -31,6 +31,7 @@
   "homepage": "https://github.com/joshmakar/yelp-camp#readme",
   "dependencies": {
     "@sendgrid/mail": "^6.4.0",
+    "@types/jquery": "^3.3.31",
     "async": "^3.1.0",
     "body-parser": "^1.19.0",
     "bootstrap": "^4.3.1",
@@ -57,6 +58,8 @@
     "browser-sync": "^2.26.7",
     "gulp": "^4.0.2",
     "gulp-nodemon": "^2.4.2",
-    "gulp-sass": "^4.0.2"
+    "gulp-sass": "^4.0.2",
+    "gulp-typescript": "^5.0.1",
+    "typescript": "^3.5.3"
   }
 }
