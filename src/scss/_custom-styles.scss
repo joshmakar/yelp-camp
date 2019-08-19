@@ -1,13 +1,38 @@
-$nav-bar-height: 56px;
+/* TOC
 
-html, body {
-  min-height: 100vh;
-  height: auto;
+  Variables
+  Global Styling
+  Unique Styles
+  3rd Party Styles
+  Help
+
+*/
+
+/* Variables */
+$nav-bar-height: 56px;
+$footer-height: 72px;
+
+
+/* Global Styling */
+// html, body {
+//   min-height: 100%;
+//   height: auto;
+// }
+
+html {
+  min-height: 100%;
+  position: relative;
 }
 
 body {
-  background: linear-gradient(45deg, rgb(45, 11, 30) 0%, rgb(45, 11, 30) 49%,rgb(78, 19, 25) 49%, rgb(78, 19, 25) 67%,rgb(111, 27, 19) 67%, rgb(111, 27, 19) 76%,rgb(143, 36, 14) 76%, rgb(143, 36, 14) 81%,rgb(176, 44, 8) 81%, rgb(176, 44, 8) 82%,rgb(209, 52, 3) 82%, rgb(209, 52, 3) 100%);
+  min-height: 100%;
+}
+
+body {
+  background: linear-gradient(45deg, #4D5359 0%, #4D5359 49%,#508484 49%, #508484 67%,#79C99E 67%, #79C99E 76%,#97DB4F 76%, #97DB4F 81%,#4D5359 81%, #4D5359 82%,#508484 82%, #508484 100%);
   background-repeat: no-repeat;
+  background-size: cover;
+  padding-bottom: $footer-height * 2;
   padding-top: $nav-bar-height;
 
   @include media-breakpoint-up(md) {
@@ -15,6 +40,15 @@ body {
   }
 }
 
+.nav-footer {
+  bottom: 0;
+  padding: 1rem 0;
+  position: absolute;
+  width: 100%;
+}
+
+
+/* Unique Styles */
 .campgrounds-header {
   background: url('../media/images/atanas-malamov-hMoRt0Y6wdU-unsplash.jpg');
   background-attachment: fixed;
@@ -33,9 +67,36 @@ body {
 }
 
 
-/*Google Maps*/
+/* 3rd Party Styles */
+
+// Google Maps
 #map {
   background-color: gray('100');
   height: 400px;
   width: 100%;
  }
+
+
+ /* Help
+
+// These must be imported in order to use Bootstrap's media query mixins.
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins/_breakpoints";
+
+// Min Width
+@include media-breakpoint-up(sm) {
+  // Styles
+}
+
+//Max Width
+@include media-breakpoint-down(sm) {
+  // Styles
+}
+
+// Min and Max Width
+@include media-breakpoint-between(sm, md) {
+  // Styles
+}
+
+*/
