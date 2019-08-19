@@ -1,15 +1,37 @@
 <% include partials/wrapper_head_default %>
 
-<h1>Sign Up!</h1>
+<div class="row justify-content-center">
+  <div class="col col-md-6 col-lg-4 bg-light p-4 m-4 m-md-0">
+    <h1>Sign Up!</h1>
 
-<form action="/register" method="POST">
-  <input type="email" name="user[email]" placeholder="john@mulaney.com">
-  <input type="text" name="username" placeholder="Enter a username">
-  <input type="text" name="user[firstName]" placeholder="John">
-  <input type="text" name="user[lastName]" placeholder="Mulaney">
-  <input type="password" name="password" placeholder="Enter a strong password">
-  <input type="password" name="adminCode" placeholder="Enter your admin code if you have one">
-  <button>Sign Up!</button>
-</form>
+    <form action="/register" method="POST">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input id="email" class="form-control" type="email" name="user[email]" placeholder="john@mulaney.com">
+      </div>
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input id="username" class="form-control" type="text" name="username" placeholder="Enter a username">
+      </div>
+      <div class="form-group">
+        <label for="first_name">First Name</label>
+        <input id="first_name" class="form-control" type="text" name="user[firstName]" placeholder="John">
+      </div>
+      <div class="form-group">
+        <label for="last_name">Last Name</label>
+        <input id="last_name" class="form-control" type="text" name="user[lastName]" placeholder="Mulaney">
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input id="password" class="form-control" type="password" name="password" placeholder="Enter a strong password">
+      </div>
+      <div class="form-group">
+        <label for="admin_code">Admin Code</label>
+        <input id="admin_code" class="form-control" type="password" name="adminCode" placeholder="Enter your admin code if you have one">
+      </div>
+      <button class="btn btn-primary">Sign Up!</button> or <a href="/login">Login</a>
+    </form>
+  </div>
+</div>
 
 <% include partials/footer %>
