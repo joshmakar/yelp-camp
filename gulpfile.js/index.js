@@ -4,8 +4,10 @@
 
 const { watch, src, dest, series } = require('gulp');
 const sass        = require('gulp-sass'),
-      nodemon     = require('gulp-nodemon');
+      nodemon     = require('gulp-nodemon'),
+      ts          = require('gulp-typescript'),
       browserSync = require('browser-sync').create();
+const tsProject = ts.createProject('tsconfig.json');
 
 
 //////////////////////////////////////////////////
@@ -55,10 +57,18 @@ function scss() {
     .pipe(browserSync.stream());
 }
 
+// Compile TS
+function typescript() {
+  return tsProject.src()
+    .pipe(tsProject())
+    .js.pipe(dest('public/js'));
+}
+
 // Setup watch tasks
 function watching(done) {
   watch('./src/scss/**/*.scss', scss);
-  watch('./**/*.ejs').on('change', browserSync.reload);
+  watch('./src/ts/**/*.ts', typescript);
+  watch(['./**/*.ejs']).on('change', browserSync.reload);
   done();
 }
 
@@ -70,4 +80,5 @@ function watching(done) {
 exports.server  = series(startNodemon, browserSyncInit);
 exports.scss    = scss;
 exports.watch   = watching;
+exports.typescript = typescript;
 exports.default = series(startNodemon, browserSyncInit, watching);
