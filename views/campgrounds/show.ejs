@@ -1,18 +1,8 @@
 <% include ../partials/wrapper_head_default %>
 
 <div class="row">
-  <div class="col-3">
-    <p class="lead">YelpCamp</p>
-    <ul class="list-group">
-      <li class="list-group-item active">Info 1</li>
-      <li class="list-group-item">Info 2</li>
-      <li class="list-group-item">Info 3</li>
-    </ul>
-    <!--Google Map Container -->
-    <div id="map"></div>
-  </div>
-  <div class="col-9">
-    <div class="card mb-2">
+  <div class="col-12 col-md-8 mb-2">
+    <div class="card">
       <img class="card-img-top" src="<%= campground.image %>" alt="">
       <div class="caption-full">
         <span class="float-right pr-1"><strong>$<%= campground.price %></strong>/night</span>
@@ -36,6 +26,12 @@
         <span class="d-block float-right">4 reviews</span>
       </div>
     </div>
+  </div>
+  <div class="col-12 col-md-4 order-md-first mb-2">
+    <!--Google Map Container -->
+    <div id="map"></div>
+  </div>
+  <div class="col-12 col-md-8 mb-2 offset-md-4">
     <div class="card bg-light">
       <div class="card-header">
         Comments
