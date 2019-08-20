@@ -52,7 +52,7 @@ function browserSyncInit(done) {
 // Compile SCSS
 function scss() {
   return src('./src/scss/**/*.scss')
-    .pipe(sass().on('error', sass.logError))
+    .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
     .pipe(dest('./public/css'))
     .pipe(browserSync.stream());
 }
