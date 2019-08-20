@@ -262,6 +262,13 @@ router.get('/users/:id', (req, res) => {
 
 //------------------------------------------------
 
+// About route
+router.get('/about', (req, res) => {
+  res.render('about', {page: 'about'});
+});
+
+//------------------------------------------------
+
 // 404 route
 router.get('*', (req, res) => {
   res.send('404');
