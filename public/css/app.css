@@ -7445,6 +7445,38 @@ body {
     .campgrounds-header {
       min-height: 50vh; } }
 
+.down-arrow {
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+  animation-name: bounce-6;
+  animation-timing-function: ease-in-out;
+  bottom: 0;
+  font-size: 3em;
+  left: 0;
+  position: absolute;
+  text-align: center;
+  transform-origin: bottom;
+  width: 100%; }
+  @media (min-width: 768px) {
+    .down-arrow {
+      display: none; } }
+
+@keyframes bounce-6 {
+  60% {
+    transform: translateY(0); }
+  75% {
+    transform: translateY(-10px); }
+  80% {
+    transform: translateY(0); }
+  85% {
+    transform: translateY(-7px); }
+  90% {
+    transform: translateY(0); }
+  95% {
+    transform: translateY(-3px); }
+  100% {
+    transform: translateY(0); } }
+
 /* 3rd Party Styles */
 #map {
   background-color: #f8f9fa;

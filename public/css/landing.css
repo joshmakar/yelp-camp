@@ -7424,6 +7424,8 @@ body {
   z-index: 0; }
 
 .slideshow li {
+  -webkit-filter: blur(4px);
+  filter: blur(4px);
   background-position: 50% 50%;
   background-repeat: no-repeat;
   background-size: cover;
@@ -7434,26 +7436,26 @@ body {
   top: 0;
   width: 100%;
   z-index: 0;
-  animation: imageAnimation 50s linear infinite; }
+  animation: imageAnimation 25000ms linear infinite; }
 
 .slideshow li:nth-child(1) {
-  background-image: url(http://i.imgur.com/K3mPv14.jpg); }
+  background-image: url("../media/images/K3mPv14.jpg"); }
 
 .slideshow li:nth-child(2) {
-  background-image: url(http://i.imgur.com/SBEmFpv.jpg);
-  animation-delay: 10s; }
+  background-image: url("../media/images/SBEmFpv.jpg");
+  animation-delay: 5000ms; }
 
 .slideshow li:nth-child(3) {
-  background-image: url(http://i.imgur.com/emvhOnb.jpg);
-  animation-delay: 20s; }
+  background-image: url("../media/images/emvhOnb.jpg");
+  animation-delay: 10000ms; }
 
 .slideshow li:nth-child(4) {
-  background-image: url(http://i.imgur.com/2LSMCmJ.jpg);
-  animation-delay: 30s; }
+  background-image: url("../media/images/2LSMCmJ.jpg");
+  animation-delay: 15000ms; }
 
 .slideshow li:nth-child(5) {
-  background-image: url(http://i.imgur.com/TVGe0Ef.jpg);
-  animation-delay: 40s; }
+  background-image: url("../media/images/TVGe0Ef.jpg");
+  animation-delay: 20000ms; }
 
 @keyframes imageAnimation {
   0% {

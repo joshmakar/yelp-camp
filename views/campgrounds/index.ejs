@@ -2,23 +2,35 @@
 
 <header class="jumbotron campgrounds-header">
   <div class="container">
-    <div class="row mb-3">
-      <div class="col">
+    <div class="row">
+      <div class="col col-md-8 col-lg-5">
         <h1>Find Your Camp</h1>
         <p>View hand-picked campgrounds from all over the world.</p>
-        <a class="btn btn-primary btn-lg" href="/campgrounds/new">Add New Campground</a>
       </div>
     </div>
     <div class="row">
-      <div class="col">
-        <form class="form-inline" action="/campgrounds" method="GET">
-          <div class="form-group">
+      <div class="col-12 col-md-3 mb-3">
+          <% if(typeof currentUser === 'undefined'){ %>
+            <a class="btn btn-primary btn-lg btn-block" href="/register">Sign Up to Contribute!</a>
+          <% } else { %>
+            <a class="btn btn-primary btn-lg btn-block" href="/campgrounds/new">Add New Campground</a>
+          <% } %>
+      </div>
+      <div class="col col-md-8 col-lg-4 d-md-none">
+        <form action="/campgrounds" method="GET">
+          <div class="input-group">
             <input class="form-control" type="text" name="search" placeholder="Campground search...">
-            <button class="btn btn-primary">Search</button>
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
+            </div>
+            <!-- <button class="btn btn-primary">Search</button> -->
           </div>
         </form>
       </div>
     </div>
+  </div>
+  <div class="down-arrow">
+    <i class="fas fa-arrow-down text-light"></i>
   </div>
 </header>
 
