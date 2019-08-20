@@ -2,32 +2,34 @@
 
 <footer class="nav-footer bg-dark mt-auto">
   <ul class="nav justify-content-center">
-      <li class="nav-item <%= typeof page !== 'undefined' && page === 'campgrounds' ? 'active' : '' %>">
-          <a class="nav-link" href="/campgrounds">Home <span class="sr-only">(current)</span></a>
-        </li>
-        <% if(typeof currentUser === 'undefined'){ %>
-          <li class="nav-item <%= typeof page !== 'undefined' && page === 'login' ? 'active' : '' %>">
-            <a class="nav-link" href="/login">Log In</a>
-          </li>
-          <li class="nav-item <%= typeof page !== 'undefined' && page === 'register' ? 'active' : '' %>">
-            <a class="nav-link" href="/register">Sign Up</a>
-          </li>
+    <li class="nav-item <%= typeof page !== 'undefined' && page === 'campgrounds' ? 'active' : '' %>">
+      <a class="nav-link" href="/campgrounds">Home<span class="sr-only">(current)</span></a>
+    </li>
+    <li class="nav-item <%= typeof page !== 'undefined' && page === 'about' ? 'active' : '' %>">
+      <a class="nav-link" href="/about">About<span class="sr-only">(current)</span></a>
+    </li>
+    <% if(typeof currentUser === 'undefined'){ %>
+      <li class="nav-item <%= typeof page !== 'undefined' && page === 'login' ? 'active' : '' %>">
+        <a class="nav-link" href="/login">Log In</a>
+      </li>
+      <li class="nav-item <%= typeof page !== 'undefined' && page === 'register' ? 'active' : '' %>">
+        <a class="nav-link" href="/register">Sign Up</a>
+      </li>
+    <% } else { %>
+      <li class="navbar-text">
+        <a href="/users/<%= currentUser._id %>">
+        <% if (currentUser.isAdmin) { %>
+          <i class="fas fa-user-astronaut"></i>
         <% } else { %>
-          <li class="navbar-text">
-            <a href="/users/<%= currentUser._id %>">
-            <% if (currentUser.isAdmin) { %>
-              <i class="fas fa-user-astronaut"></i>
-            <% } else { %>
-              <i class="fas fa-user"></i>
-            <% } %>
-              <%= currentUser.username %></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/logout">Log Out</a>
-          </li>
+          <i class="fas fa-user"></i>
         <% } %>
-      </ul>
-    </ul>
+          <%= currentUser.username %></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/logout">Log Out</a>
+      </li>
+    <% } %>
+  </ul>
 </footer>
 
   <!-- JQuery -->
