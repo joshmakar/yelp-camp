@@ -25,7 +25,7 @@ body {
 }
 
 body {
-  background: linear-gradient(45deg, #4D5359 0%, #4D5359 49%,#508484 49%, #508484 67%,#79C99E 67%, #79C99E 76%,#97DB4F 76%, #97DB4F 81%,#4D5359 81%, #4D5359 82%,#508484 82%, #508484 100%);
+  background: linear-gradient(45deg, #4D5359 0%, #4D5359 49%,#508484 49%, #508484 67%,rgb(98, 168, 131) 67%, rgb(98, 168, 131) 76%,#97DB4F 76%, #97DB4F 81%,#4D5359 81%, #4D5359 82%,#508484 82%, #508484 100%);
   background-repeat: no-repeat;
   background-size: cover;
   padding-bottom: $footer-height * 2;
