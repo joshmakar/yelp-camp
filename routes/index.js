@@ -13,9 +13,6 @@ const async    = require('async'),
 const User       = require('../models/user'),
       Campground = require('../models/campground');
 
-// Require middlware
-const middleware = require('../middleware');
-
 // Create package associations
 const router   = express.Router();
 
