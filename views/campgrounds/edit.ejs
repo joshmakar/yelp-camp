@@ -1,7 +1,7 @@
 <% include ../partials/wrapper_head_default %>
 
 <div class="row justify-content-center">
-  <div class="col-12 col-lg-6 bg-light p-4 m-4 m-md-0">
+  <div class="col col-md-6 col-lg-4 bg-light p-4 m-4 m-md-0">
     <h1>Edit <%= campground.name %></h1>
     <form action="/campgrounds/<%= campground._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
       <div class="form-group">
